@@ -1,0 +1,19 @@
+<style>
+    input {
+        display: block;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h1>Post create</h1>
+
+<form method="post" action="{{url_for('post_create')}}" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="elon nomini kiriting...">
+    <textarea type="password" name="info" placeholder="malumot yozing..."></textarea>
+    <br>
+    <br>
+    <input type="number" name="price" placeholder="narxini kiriting...">
+    <input type="file" id="image" name="image" accept="image/*" required>
+    <button type="submit" >Saqlash</button>
+    <a href="{{ url_for('index') }}">Ortga qaytish</a>
+</form>

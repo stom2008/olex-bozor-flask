@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Bosh sahifa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .post-img {
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
+        .info-text {
+            margin: 2px 0;
+            font-size: 14px;
+        }
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container">
+        <span class="navbar-brand">👋 Salom, {{name}}</span>
+        <div>
+            <a href="{{ url_for('post_create') }}" class="btn btn-success me-2">➕ Post yaratish</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">🚪 Chiqish</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    <h3 class="mb-4 text-center">📌 Postlar ro'yxati</h3>
+
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+
+                <img src="{{ url_for('static', filename='rasmlar/' + post.image_url) }}" class="post-img" alt="{{post.title}}">
+
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ post.title }}</h5>
+
+                    <p class="info-text">👤 <b>{{post.user.name}}</b></p>
+                    <p class="info-text">📞 {{post.user.phone_number}}</p>
+                    <p class="info-text">💰 <b>{{post.price}}</b> so'm</p>
+                    <p class="info-text">ℹ️ {{post.info}}</p>
+
+                    <span class="badge 
+                        {% if post.status == 'yangi' %}
+                            bg-success
+                        {% elif post.status == 'sotildi' %}
+                            bg-danger
+                        {% else %}
+                            bg-secondary
+                        {% endif %}
+                    ">Status: {{post.status}}</span>
+
+                    <br><span class="badge bg-info text-dark mt-2">🕒 {{post.created_at}}</span>
+
+                    <div class="d-flex gap-2 mt-3">
+                        {% if post.user_id == user_id %}
+                            <a href="{{ url_for('post_create', id=post.id) }}" class="btn btn-primary btn-sm w-50">👁 Ko‘rish</a>
+                            <a href="{{ url_for('post_create', id=post.id) }}" class="btn btn-warning btn-sm w-50">✏️ O‘zgartirish</a>
+                        {% else %}
+                            <a href="{{ url_for('post_create', id=post.id) }}" class="btn btn-primary btn-sm w-100">👁 Ko‘rish</a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

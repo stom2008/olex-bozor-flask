@@ -1,0 +1,15 @@
+<style>
+    input {
+        display: block;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h1>Register Page</h1>
+
+<form method="post" action="{{url_for('login')}}">
+    <input type="text" name="phone" placeholder="telephone raqam yozing...">
+    <input type="password" name="'parol" placeholder="parol yozing...">
+    <input type="submit" >Kirish</button>
+    <a href="{{ url_for('register')}}">Menda account yoq</a>
+</from>
